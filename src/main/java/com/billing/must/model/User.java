@@ -1,26 +1,31 @@
 package com.billing.must.model;
 
-import org.springframework.data.annotation.Id;
-import org.springframework.data.relational.core.mapping.Table;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.Table;
 
-@Table("users")
+@Entity
+@Table(name = "users")  // Renamed table to "users" to avoid reserved word conflict
 public class User {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String name;
     private String email;
 
-    public User() {
-    }
+    // Constructors
+    public User() {}
 
     public User(String name, String email) {
         this.name = name;
         this.email = email;
     }
 
-    // Getters and setters
-
+    // Getters and Setters
     public Long getId() {
         return id;
     }
