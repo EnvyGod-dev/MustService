@@ -5,9 +5,11 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.Table;
+import jakarta.persistence.Enumerated;
+import jakarta.persistence.EnumType;
 
 @Entity
-@Table(name = "users")  // Renamed table to "users" to avoid reserved word conflict
+@Table(name = "users")  // Avoid reserved word conflict
 public class User {
 
     @Id
@@ -15,17 +17,16 @@ public class User {
     private Long id;
 
     private String name;
+
     private String email;
 
-    // Constructors
+    private String password;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
+
     public User() {}
 
-    public User(String name, String email) {
-        this.name = name;
-        this.email = email;
-    }
-
-    // Getters and Setters
     public Long getId() {
         return id;
     }
@@ -48,5 +49,29 @@ public class User {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    public enum Role {
+        Teacher,
+        Student,
+        Admin,
+        Guest,
+        SuperAdmin
     }
 }

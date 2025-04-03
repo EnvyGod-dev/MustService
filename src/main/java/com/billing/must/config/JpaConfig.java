@@ -1,11 +1,10 @@
 package com.billing.must.config;
 
 import javax.sql.DataSource;
-import org.springframework.beans.factory.annotation.Value;
+
 import org.springframework.boot.jdbc.DataSourceBuilder;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
@@ -16,23 +15,13 @@ import org.springframework.transaction.PlatformTransactionManager;
 @EnableJpaRepositories(basePackages = "com.billing.must.repository")
 public class JpaConfig {
 
-    @Value("${spring.datasource.url}")
-    private String datasourceUrl;
-
-    @Value("${spring.datasource.username}")
-    private String datasourceUsername;
-
-    @Value("${spring.datasource.password}")
-    private String datasourcePassword;
-
     @Bean
-    @Primary
     public DataSource dataSource() {
         return DataSourceBuilder.create()
                 .driverClassName("org.postgresql.Driver")
-                .url(datasourceUrl)
-                .username(datasourceUsername)
-                .password(datasourcePassword)
+                .url("jdbc:postgresql://103.50.205.42:5432/Must")
+                .username("Worms")
+                .password("Worms1231@")
                 .build();
     }
 
@@ -47,6 +36,7 @@ public class JpaConfig {
         factoryBean.setDataSource(dataSource);
         factoryBean.setJpaVendorAdapter(vendorAdapter);
         factoryBean.setPackagesToScan("com.billing.must.model");
+
 
         return factoryBean;
     }
